@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
     #   binding.pry
     # end
-    response = Faraday.post("https://github.com/login/oauth/access_token"), {client_id: ENV["GITHUB_CLIENT_ID"], client_secret: ENV["GITHUB_SECRET"],code: params["code"], 'Accept': 'application/json'}
+    response = Faraday.post("https://github.com/login/oauth/access_token"), {client_id: ENV["GITHUB_CLIENT_ID"], client_secret: ENV["GITHUB_SECRET"],code: params["code"]}, {'Accept' => 'application/json'}
     
     binding.pry
     access_hash = JSON.parse(response.body)
