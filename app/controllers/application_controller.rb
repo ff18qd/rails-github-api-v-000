@@ -10,13 +10,14 @@ class ApplicationController < ActionController::Base
       # make sure to pass in the scope parameter (`repo` scope should be appropriate for what we want to do) in step of the auth process!
       # https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/#web-application-flow
       client_id = ENV['GITHUB_CLIENT_ID']
-      scopestring = 'repo'
-      redirect_uri = CGI.escape("https://80887eaf7a0b474e9fa06d513302b5b6.vfs.cloud9.us-east-2.amazonaws.com/auth")
-      github_url = "https://github.com/login/oauth/authorize?client_id=#{client_id}&scope=#{scopestring}&redirect_uri=#{redirect_uri}"
+      redirect_uri = CGI.escape("https://80887eaf7a0b474e9fa06d513302b5b6.vfs.cloud9.us-east-2.amazonaws.com/auth")  
+      # github_url = "https://github.com/login/oauth/authorize?client_id=#{client_id}&redirect_uri=#{redirect_uri}$scope=repo&response_type=code"
+      github_url = "https://github.com/login/oauth/authorize?client_id=#{client_id}&scope=repo&redirect_uri=#{redirect_uri}"
       redirect_to github_url unless logged_in?
-      # redirect_to root_path 
+     
     end
 
     def logged_in?
+      !!session[:token]
     end
 end
